@@ -1,0 +1,207 @@
+minddigital/  
+├── index.html          (Página principal)  
+├── styles/  
+│   ├── style.css       (Estilos principais)  
+│   └── animations.css  (Animações da citação)  
+├── scripts/  
+│   ├── main.js         (Lógica do site)  
+│   └── books.js        (Dados dos livros em JSON)  
+├── images/  
+│   ├── logo.png        (Sua logo)  
+│   └── background.jpg  (Fundo opcional)  
+├── books/              (Pasta com livros em PDF/EPUB)  
+└── README.md           (Instruções)  
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Digital - Biblioteca Acadêmica Livre</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+    <!-- Cabeçalho com Logo -->
+    <header>
+        <img src="images/logo.png" alt="Mind Digital Logo" class="logo">
+        <h1>Mind Digital</h1>
+        <p class="rotating-quote">"O verdadeiro legado não está na riqueza que acumulou, mas sim nas ideias que acenderam outras almas e nos sonhos que despertou o mundo."</p>
+    </header>
+
+    <!-- Barra de Navegação (Categorias) -->
+    <nav>
+        <ul>
+            <li><a href="#licenciaturas">Licenciaturas</a></li>
+            <li><a href="#primario">Primário/Secundário (1ª-12ª)</a></li>
+            <li><a href="#literatura">Obras Literárias</a></li>
+            <li><a href="#didaticos">Livros Didáticos</a></li>
+        </ul>
+    </nav>
+
+    <!-- Seção de Livros (Exemplo: Licenciaturas) -->
+    <section id="licenciaturas" class="category">
+        <h2>📖 Licenciaturas</h2>
+        <div class="book-grid">
+            <!-- Livros serão carregados via JavaScript -->
+        </div>
+    </section>
+
+    <!-- Seção "Sobre o Projeto" -->
+    <section id="sobre">
+        <h2>📌 Como Funciona?</h2>
+        <p>O Mind Digital é uma biblioteca gratuita com livros em domínio público para estudantes de Moçambique, PALOP e lusófonos. Todos os downloads são 100% legais e gratuitos.</p>
+    </section>
+
+    <!-- Seção "Apoie o Projeto" -->
+    <section id="doacoes">
+        <h2>💙 Apoie o Mind Digital</h2>
+        <p><strong>Criador:</strong> Alirio Nine⁹</p>
+        <div class="donation-methods">
+            <p>Contribua via:</p>
+            <ul>
+                <li>MPesa: <strong>877465556</strong></li>
+                <li>PayPal: <strong>@alirio-nine</strong></li>
+                <li>PIX (Brasil): <strong>877465556</strong></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>© 2024 Mind Digital. Todos os livros são de domínio público ou licenças livres.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scripts/books.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
+/* Cores Principais */
+:root {
+    --azul-primario: #1a73e8;
+    --azul-escuro: #0d47a1;
+    --branco: #ffffff;
+    --cinza-claro: #f5f5f5;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--cinza-claro);
+    color: #333;
+}
+
+header {
+    background: var(--azul-primario);
+    color: var(--branco);
+    padding: 20px;
+    text-align: center;
+}
+
+.logo {
+    height: 80px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.rotating-quote {
+    font-style: italic;
+    opacity: 0.9;
+}
+
+nav {
+    background: var(--azul-escuro);
+    padding: 10px;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    margin: 0 15px;
+}
+
+nav a {
+    color: var(--branco);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.category {
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.book-card {
+    background: var(--branco);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.book-card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background: var(--azul-primario);
+    color: var(--branco);
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background: var(--azul-escuro);
+    color: var(--branco);
+}
+// Dados dos Livros (Exemplo)
+const books = {
+    licenciaturas: [
+        { title: "Direito Civil Básico", author: "Autor Anônimo", file: "livros/direito.pdf" },
+        { title: "Contabilidade Financeira", author: "Universidade de Lisboa", file: "livros/contabilidade.pdf" }
+    ],
+    primario: [
+        { title: "Matemática 7ª Classe", author: "MINED Moçambique", file: "livros/matematica-7.pdf" }
+    ]
+};
+
+// Carrega livros na página
+function loadBooks() {
+    const categories = Object.keys(books);
+    categories.forEach(category => {
+        const section = document.getElementById(category);
+        if (section) {
+            const grid = section.querySelector('.book-grid');
+            books[category].forEach(book => {
+                grid.innerHTML += `
+                    <div class="book-card">
+                        <h3>${book.title}</h3>
+                        <p>${book.author}</p>
+                        <a href="${book.file}" download>Baixar</a>
+                    </div>
+                `;
+            });
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', loadBooks);
